@@ -65,6 +65,9 @@ abstract class $ClockBloc extends RxBlocBase
   late final Stream<AlarmResponse> _isAlarmActiveState =
       _mapToIsAlarmActiveState();
 
+  /// The state of [notification] implemented in [_mapToNotificationState]
+  late final Stream<String?> _notificationState = _mapToNotificationState();
+
   @override
   void setMinute(int minute) => _$setMinuteEvent.add(minute);
 
@@ -113,6 +116,9 @@ abstract class $ClockBloc extends RxBlocBase
   @override
   Stream<AlarmResponse> get isAlarmActive => _isAlarmActiveState;
 
+  @override
+  Stream<String?> get notification => _notificationState;
+
   Stream<bool> _mapToIsLoadingState();
 
   Stream<String> _mapToErrorsState();
@@ -128,6 +134,8 @@ abstract class $ClockBloc extends RxBlocBase
   Stream<bool> _mapToIsPMActiveState();
 
   Stream<AlarmResponse> _mapToIsAlarmActiveState();
+
+  Stream<String?> _mapToNotificationState();
 
   @override
   ClockBlocEvents get events => this;

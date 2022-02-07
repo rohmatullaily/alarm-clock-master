@@ -15,12 +15,14 @@ class MinuteHandWidget extends StatelessWidget {
           builder: (context) {
             RxBlocProvider.of<MinuteHandBlocType>(context)
                 .events
-                .setRadius(300 / 2);
+                .setRadius(200 / 2);
             return GestureDetector(
               onPanUpdate: RxBlocProvider.of<MinuteHandBlocType>(context)
                   .events
                   .onPanUpdate,
               child: Container(
+                height: 200 / 2 * 2,
+                width: 200 / 2 * 2,
                 decoration: const BoxDecoration(
                   shape: BoxShape.circle,
                   color: Colors.transparent,

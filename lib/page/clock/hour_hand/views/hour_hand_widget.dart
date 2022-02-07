@@ -18,8 +18,8 @@ class HourHandWidget extends StatelessWidget {
             return GestureDetector(
               onPanUpdate: (details) {
                 RxBlocProvider.of<HourHandBlocType>(context)
-                  .events
-                  .onPanUpdate(details);
+                    .events
+                    .onPanUpdate(details);
               },
               child: Container(
                 height: 200 / 2 * 1.5,

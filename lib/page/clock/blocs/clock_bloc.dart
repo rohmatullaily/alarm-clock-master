@@ -17,13 +17,6 @@ abstract class ClockBlocEvents {
     String? minuteData, 
     List<bool>? isItemActive,
   );
-
-
-  // void setNotification(
-  //   String? title,
-  //   String? body,
-  //   String? payload,
-  //   DateTime time);
 }
 
 abstract class ClockBlocStates {
@@ -35,6 +28,8 @@ abstract class ClockBlocStates {
   Stream<bool> get isAMActive;
   Stream<bool> get isPMActive;
   Stream<AlarmResponse> get isAlarmActive;
+  Stream<String?> get notification;
+
 }
 
 @RxBloc()
@@ -132,8 +127,11 @@ class ClockBloc extends $ClockBloc {
         if(notif != null){ 
           alarmResponse = AlarmResponse(errorMessage: "", isActive: true);
         }
+
         
         yield alarmResponse;
   });
-  
+
+  @override
+  Stream<String?> _mapToNotificationState() => _useCase.onselectnotif;
 }

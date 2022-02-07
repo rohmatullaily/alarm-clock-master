@@ -11,15 +11,17 @@ abstract class ANotificationUseCase {
     String? payload,
     DateTime time
     );
+
+  Stream<String?> get onselectnotif;
 }
 
 class NotificationUseCase implements ANotificationUseCase {
 
-  late final _notif;
-  late final _onselectnotif;
+  late final FlutterLocalNotificationsPlugin _notif;
+  late final BehaviorSubject<String?> _onselectnotif;
 
-  NotificationUseCase({required FlutterLocalNotificationsPlugin notif, required BehaviorSubject<String?> onselectnotif}): 
-  _notif = notif, _onselectnotif = onselectnotif {
+  NotificationUseCase({required FlutterLocalNotificationsPlugin notifUseCase, required BehaviorSubject<String?> onselectnotifUsecase}): 
+  _notif = notifUseCase, _onselectnotif = onselectnotifUsecase {
  const android =  AndroidInitializationSettings('@mipmap/ic_launcher');
     const ios =  IOSInitializationSettings();
     const initializationSettings = InitializationSettings(android: android, iOS: ios);
@@ -35,7 +37,7 @@ class NotificationUseCase implements ANotificationUseCase {
   Future showNotification(int? id, String? title, String? body, String? payload, DateTime time) {
 
     var notification = _notif.zonedSchedule(
-          id,
+          id ?? 0,
           title,
           body,
           timezone.TZDateTime.from(time, timezone.local),
@@ -56,4 +58,8 @@ class NotificationUseCase implements ANotificationUseCase {
 
    return notification;
   }
+
+
+  @override
+  Stream<String?> get onselectnotif => _onselectnotif;
 }
